@@ -1,0 +1,3 @@
+[submodule "lib/flexible"]
+	path = lib/flexible
+	url = https://github.com/jb55/flexible.git
