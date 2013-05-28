@@ -54,7 +54,7 @@ library
                , text >= 0.11
                , mtl  >= 2.0.1
                , aeson >= 0.2.0.0
-               , persistent >= 1.2
+               , persistent >= 0.0.0
                , data-default
                , flexible >= 0.1.0
 

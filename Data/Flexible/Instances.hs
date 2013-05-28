@@ -8,8 +8,7 @@ import           Data.Text (Text)
 import qualified Data.Text as T
 import           Control.Applicative
 import           Data.Default (Default(..))
-import           Database.Persist.Class
-import           Database.Persist.Types (PersistValue(..))
+import           Database.Persist.Store
 import           Control.Monad.Error
 import           Data.Aeson
 
@@ -24,11 +23,12 @@ instance (FromJSON a, FromJSON b) => FromJSON (Flexible b a) where
                 (Raw  <$> parseJSON v)
 
 -- not sure if this should be here but we need it for the PersistField instance
-instance Error Text where
+instance Error Text where 
   noMsg  = T.empty
   strMsg = T.pack
 
 instance (PersistField a, PersistField b) => PersistField (Flexible b a) where
+  sqlType _ = SqlString
   toPersistValue (Some a) = toPersistValue a
   toPersistValue (Raw a)  = toPersistValue a
   toPersistValue NotThere = PersistNull
