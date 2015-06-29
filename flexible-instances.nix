@@ -3,7 +3,7 @@
 }:
 mkDerivation {
   pname = "flexible-instances";
-  version = "0.1.0.0";
+  version = "0.2.0";
   src = ./.;
   buildDepends = [
     aeson base data-default flexible mtl persistent text
