@@ -28,13 +28,12 @@ instance (FromJSON a, FromJSON b) => FromJSON (Flexible b a) where
   parseJSON v = (Some <$> parseJSON v) <|>
                 (Raw  <$> parseJSON v)
 
-instance (Typeable b, Typeable a, FromField b, FromField a) => FromField (Flexible b a) where
+instance (FromField b, FromField a) => FromField (Flexible b a) where
   fromField _ Nothing   = return NotThere
   fromField f bs =
     (Some <$> fromField f bs) <|>
     (Raw <$> fromField f bs) <|>
-    (returnError ConversionFailed f
-       ("no parse on Some or Raw in Flexible: " ++ maybe "null" unpack bs))
+    (fail "no parse on Some or Raw in Flexible")
 
 
 -- not sure if this should be here but we need it for the PersistField instance
